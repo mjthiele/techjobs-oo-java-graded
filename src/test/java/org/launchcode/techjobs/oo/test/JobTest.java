@@ -36,4 +36,28 @@ public class JobTest {
         assertFalse(test_job.equals(test_job2));
     }
 
+    @Test
+    public void testToStringStartsAndEndsWithNewLine(){
+        Job test_job = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+        char firstChar = test_job.toString().charAt(0);
+        char lastChar = test_job.toString().charAt(test_job.toString().length() - 1);
+        String expectedChar = "\n";
+        assertEquals('\n',firstChar);
+        assertEquals('\n',lastChar);
+    }
+
+
+    @Test
+    public void testToStringContainsCorrectLabelsAndData(){
+        Job test_job = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+        String answer = "\nID: " + test_job.getId() + "\nName: Product tester\nEmployer: ACME\nLocation: Desert\nPosition Type: Quality control\nCore Competency: Persistence\n";
+        assertEquals(test_job.toString(),answer);
+    }
+    @Test
+    public void testToStringHandlesEmptyField(){
+        Job test_job = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType(""), new CoreCompetency("Persistence"));
+        String answer = "\nID: " + test_job.getId() + "\nName: Product tester\nEmployer: ACME\nLocation: Desert\nPosition Type: Data not available\nCore Competency: Persistence\n";
+        assertEquals(test_job.toString(),answer);
+    }
+
 }
